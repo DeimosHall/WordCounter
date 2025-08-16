@@ -83,12 +83,12 @@ fun App() {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Box(
                         modifier = Modifier
-                            .clip(RoundedCornerShape(12.dp))
-                            .border(border = BorderStroke(
-                                1.dp,
-                                color = Color.LightGray
+                            .border(
+                                width = 1.dp,
+                                color = Color.LightGray,
+                                shape = RoundedCornerShape(12.dp)
                             )
-                        )
+                            .clip(RoundedCornerShape(12.dp))
                     ) {
                         Column(modifier = Modifier.padding(30.dp)) {
                             Text(text = "Characters")
