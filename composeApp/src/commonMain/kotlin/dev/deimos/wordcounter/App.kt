@@ -30,13 +30,22 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 fun App() {
+    fun getWordsCounting(text: String): Int {
+        return text.split(Regex("\\s+")).filter { it.isNotBlank() }.size
+    }
+
+    fun getLinesCounting(text: String): Int {
+        return text.split(Regex("\\r?\\n")).filter { it.isNotBlank() }.size
+    }
+
     MaterialTheme {
         var textState by rememberSaveable() { mutableStateOf("") }
 
         Column(
             modifier = Modifier
                 .safeContentPadding()
-                .fillMaxSize(),
+                .fillMaxSize()
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Box(
@@ -53,17 +62,16 @@ fun App() {
                 )
             }
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = "Text Input", modifier = Modifier.padding(bottom = 10.dp))
+                Text(text = "Text Input")
                 AreaTextField(
                     value = textState,
                     onValueChanged = { textState = it },
                     hintText = "Tab to paste",
                 )
-                Text(text = "Stats", modifier = Modifier.padding(top = 10.dp, bottom = 10.dp))
+                Text(text = "Stats")
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier.fillMaxWidth()
@@ -73,8 +81,17 @@ fun App() {
                         textState.length.toString(),
                         modifier = Modifier.weight(1f)
                     )
-                    StatCard("Words", "0", modifier = Modifier.weight(1f))
+                    StatCard(
+                        "Words",
+                        getWordsCounting(textState).toString(),
+                        modifier = Modifier.weight(1f)
+                    )
                 }
+                StatCard(
+                    "Lines",
+                    getLinesCounting(textState).toString(),
+                    modifier = Modifier.weight(1f)
+                )
             }
         }
     }
