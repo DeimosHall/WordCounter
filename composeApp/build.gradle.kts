@@ -11,6 +11,7 @@ plugins {
 }
 
 kotlin {
+    jvmToolchain(21)
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
