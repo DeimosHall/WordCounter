@@ -34,7 +34,7 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
-fun App() {
+fun App(renderTitle: Boolean = true) {
     fun getWordsCounting(text: String): Int {
         return text.split(Regex("\\s+")).filter { it.isNotBlank() }.size
     }
@@ -54,18 +54,20 @@ fun App() {
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = "Word Counter",
-                    fontSize = 25.sp,
-                    fontStyle = FontStyle.Normal,
-                    fontWeight = FontWeight.Bold
-                )
+            if (renderTitle) {
+                Box(
+                    contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = "Word Counter",
+                        fontSize = 25.sp,
+                        fontStyle = FontStyle.Normal,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
