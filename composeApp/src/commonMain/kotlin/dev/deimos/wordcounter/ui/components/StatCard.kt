@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import dev.deimos.wordcounter.ui.theme.LocalAppDimensions
 
 @Composable
 fun StatCard(
@@ -32,7 +33,8 @@ fun StatCard(
                 )
                 .fillMaxWidth()
         ) {
-            Column(modifier = Modifier.padding(30.dp)) {
+            val padding = LocalAppDimensions.current.cardPadding
+            Column(modifier = Modifier.padding(padding)) {
                 Text(text = title)
                 Text(text = value)
             }

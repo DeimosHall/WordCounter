@@ -32,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.deimos.wordcounter.ui.components.AreaTextField
 import dev.deimos.wordcounter.ui.components.StatCard
+import dev.deimos.wordcounter.ui.theme.WordCounterTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -45,7 +46,7 @@ fun App(renderTitle: Boolean = true) {
         return text.split(Regex("\\r?\\n")).filter { it.isNotBlank() }.size
     }
 
-    MaterialTheme {
+    WordCounterTheme {
         var textState by rememberSaveable() { mutableStateOf("") }
         val scrollState = rememberScrollState()
 
