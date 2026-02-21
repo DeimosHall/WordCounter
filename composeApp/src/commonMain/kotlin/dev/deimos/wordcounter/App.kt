@@ -80,7 +80,7 @@ fun App(renderTitle: Boolean = true) {
                                 fontSize = 25.sp,
                                 fontStyle = FontStyle.Normal,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.primary
+                                color = MaterialTheme.colorScheme.onBackground
                             )
                         }
                     }
