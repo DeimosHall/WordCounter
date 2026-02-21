@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.deimos.wordcounter.ui.components.AreaTextField
 import dev.deimos.wordcounter.ui.components.StatCard
+import dev.deimos.wordcounter.ui.theme.LocalAppDimensions
 import dev.deimos.wordcounter.ui.theme.WordCounterTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -79,7 +80,7 @@ fun App(renderTitle: Boolean = true) {
                                 fontSize = 25.sp,
                                 fontStyle = FontStyle.Normal,
                                 fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onBackground
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
@@ -131,7 +132,8 @@ fun App(renderTitle: Boolean = true) {
                     }
                     Button(
                         onClick = { textState = "" },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        shape = RoundedCornerShape(LocalAppDimensions.current.buttonCornerRadius)
                     ) {
                         Text("Clear")
                     }

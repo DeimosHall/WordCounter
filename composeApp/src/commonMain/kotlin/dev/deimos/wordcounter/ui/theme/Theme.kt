@@ -33,9 +33,15 @@ fun WordCounterTheme(
 ) {
     val platform = getPlatform().name
     val dimensions = if (platform.startsWith("Android")) {
-        AppDimensions(cardPadding = 30.dp)
+        AppDimensions(
+            cardPadding = 30.dp,
+            buttonCornerRadius = 12.dp
+        )
     } else {
-        AppDimensions(cardPadding = 15.dp)
+        AppDimensions(
+            cardPadding = 15.dp,
+            buttonCornerRadius = 8.dp
+        )
     }
 
     val colorScheme = when {

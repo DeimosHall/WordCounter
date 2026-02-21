@@ -5,6 +5,14 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
-data class AppDimensions(val cardPadding: Dp)
+data class AppDimensions(
+    val cardPadding: Dp,
+    val buttonCornerRadius: Dp
+)
 
-val LocalAppDimensions = staticCompositionLocalOf { AppDimensions(cardPadding = 30.dp) }
+val LocalAppDimensions = staticCompositionLocalOf<AppDimensions> {
+    AppDimensions(
+        cardPadding = 30.dp,
+        buttonCornerRadius = 8.dp
+    )
+}
