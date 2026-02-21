@@ -19,6 +19,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -50,73 +51,90 @@ fun App(renderTitle: Boolean = true) {
         var textState by rememberSaveable() { mutableStateOf("") }
         val scrollState = rememberScrollState()
 
-        Box(modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center) {
-            Column(
-                modifier = Modifier
-                    .safeContentPadding()
-                    .fillMaxHeight()
-                    .widthIn(max = 1000.dp)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
             ) {
-                if (renderTitle) {
-                    Box(
-                        contentAlignment = Alignment.Center,
+                Column(
+                    modifier = Modifier
+                        .safeContentPadding()
+                        .fillMaxHeight()
+                        .widthIn(max = 1000.dp)
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    if (renderTitle) {
+                        Box(
+                            contentAlignment = Alignment.Center,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(16.dp)
+                        ) {
+                            Text(
+                                text = "Word Counter",
+                                fontSize = 25.sp,
+                                fontStyle = FontStyle.Normal,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onBackground
+                            )
+                        }
+                    }
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(16.dp),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(16.dp)
+                            .weight(1f)
+                            .verticalScroll(scrollState)
                     ) {
                         Text(
-                            text = "Word Counter",
-                            fontSize = 25.sp,
-                            fontStyle = FontStyle.Normal,
-                            fontWeight = FontWeight.Bold
+                            text = "Text Input",
+                            color = MaterialTheme.colorScheme.onBackground
                         )
-                    }
-                }
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .verticalScroll(scrollState)
-                ) {
-                    Text(text = "Text Input")
-                    AreaTextField(
-                        value = textState,
-                        onValueChanged = { textState = it },
-                        hintText = "Text",
-                    )
-                    Text(text = "Stats")
-                    Column(
-                        modifier = Modifier.fillMaxWidth().height(240.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
-                    ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(16.dp),
-                            modifier = Modifier.fillMaxWidth()
+                        AreaTextField(
+                            value = textState,
+                            onValueChanged = { textState = it },
+                            hintText = "Text",
+                        )
+                        Text(
+                            text = "Stats",
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                        Column(
+                            modifier = Modifier.fillMaxWidth().height(240.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
                         ) {
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                StatCard(
+                                    "Characters",
+                                    textState.length.toString(),
+                                    modifier = Modifier.weight(1f)
+                                )
+                                StatCard(
+                                    "Words",
+                                    getWordsCounting(textState).toString(),
+                                    modifier = Modifier.weight(1f)
+                                )
+                            }
                             StatCard(
-                                "Characters",
-                                textState.length.toString(),
-                                modifier = Modifier.weight(1f)
-                            )
-                            StatCard(
-                                "Words",
-                                getWordsCounting(textState).toString(),
+                                "Lines",
+                                getLinesCounting(textState).toString(),
                                 modifier = Modifier.weight(1f)
                             )
                         }
-                        StatCard(
-                            "Lines",
-                            getLinesCounting(textState).toString(),
-                            modifier = Modifier.weight(1f)
-                        )
                     }
-                }
-                Button(onClick = { textState = "" }, modifier = Modifier.fillMaxWidth()) {
-                    Text("Clear")
+                    Button(
+                        onClick = { textState = "" },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Clear")
+                    }
                 }
             }
         }

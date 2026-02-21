@@ -28,21 +28,21 @@ fun AreaTextField(
     BasicTextField(
         value = value,
         onValueChange = onValueChanged,
-        textStyle = textStyle,
+        textStyle = textStyle.copy(color = MaterialTheme.colorScheme.onSurface),
         maxLines = maxLines,
         decorationBox = { innerTextField ->
             Box(
                 modifier = modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
-                    .background(Color.LightGray)
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
                     .padding(16.dp)
             ) {
                 if (value.isEmpty()) {
                     // Show hint text
                     Text(
                         text = hintText,
-                        color = LocalContentColor.current.copy(alpha = 0.6f)
+                        color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                     )
                 }
                 innerTextField()
