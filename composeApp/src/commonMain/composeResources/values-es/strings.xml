@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Contador de palabras</string>
+    <string name="text_input">Entrada de texto</string>
+    <string name="text_input_hint">Texto</string>
+    <string name="stats">Estadísticas</string>
+    <string name="characters">Caracteres</string>
+    <string name="words">Palabras</string>
+    <string name="lines">Líneas</string>
+    <string name="clear_button">Limpiar</string>
+</resources>

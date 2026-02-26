@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Word Counter</string>
+    <string name="text_input">Text Input</string>
+    <string name="text_input_hint">Text</string>
+    <string name="stats">Stats</string>
+    <string name="characters">Characters</string>
+    <string name="words">Words</string>
+    <string name="lines">Lines</string>
+    <string name="clear_button">Clear</string>
+</resources>

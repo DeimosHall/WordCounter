@@ -35,7 +35,17 @@ import dev.deimos.wordcounter.ui.components.AreaTextField
 import dev.deimos.wordcounter.ui.components.StatCard
 import dev.deimos.wordcounter.ui.theme.LocalAppDimensions
 import dev.deimos.wordcounter.ui.theme.WordCounterTheme
+import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import wordcounter.composeapp.generated.resources.Res
+import wordcounter.composeapp.generated.resources.app_name
+import wordcounter.composeapp.generated.resources.characters
+import wordcounter.composeapp.generated.resources.clear_button
+import wordcounter.composeapp.generated.resources.lines
+import wordcounter.composeapp.generated.resources.stats
+import wordcounter.composeapp.generated.resources.text_input
+import wordcounter.composeapp.generated.resources.text_input_hint
+import wordcounter.composeapp.generated.resources.words
 
 @Composable
 @Preview
@@ -76,7 +86,7 @@ fun App(renderTitle: Boolean = true) {
                                 .padding(16.dp)
                         ) {
                             Text(
-                                text = "Word Counter",
+                                text = stringResource(Res.string.app_name),
                                 fontSize = 25.sp,
                                 fontStyle = FontStyle.Normal,
                                 fontWeight = FontWeight.Bold,
@@ -92,16 +102,16 @@ fun App(renderTitle: Boolean = true) {
                             .verticalScroll(scrollState)
                     ) {
                         Text(
-                            text = "Text Input",
+                            text = stringResource(Res.string.text_input),
                             color = MaterialTheme.colorScheme.onBackground
                         )
                         AreaTextField(
                             value = textState,
                             onValueChanged = { textState = it },
-                            hintText = "Text",
+                            hintText = stringResource(Res.string.text_input_hint),
                         )
                         Text(
-                            text = "Stats",
+                            text = stringResource(Res.string.stats),
                             color = MaterialTheme.colorScheme.onBackground
                         )
                         Column(
@@ -113,18 +123,18 @@ fun App(renderTitle: Boolean = true) {
                                 modifier = Modifier.fillMaxWidth()
                             ) {
                                 StatCard(
-                                    "Characters",
+                                    stringResource(Res.string.characters),
                                     textState.length.toString(),
                                     modifier = Modifier.weight(1f)
                                 )
                                 StatCard(
-                                    "Words",
+                                    stringResource(Res.string.words),
                                     getWordsCounting(textState).toString(),
                                     modifier = Modifier.weight(1f)
                                 )
                             }
                             StatCard(
-                                "Lines",
+                                stringResource(Res.string.lines),
                                 getLinesCounting(textState).toString(),
                                 modifier = Modifier.weight(1f)
                             )
@@ -135,7 +145,7 @@ fun App(renderTitle: Boolean = true) {
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(LocalAppDimensions.current.buttonCornerRadius)
                     ) {
-                        Text("Clear")
+                        Text(stringResource(Res.string.clear_button))
                     }
                 }
             }
