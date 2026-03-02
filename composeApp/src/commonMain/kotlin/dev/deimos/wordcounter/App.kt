@@ -31,10 +31,14 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.deimos.wordcounter.ui.components.AreaTextField
 import dev.deimos.wordcounter.ui.components.StatCard
+import dev.deimos.wordcounter.ui.screens.WordCounterScreen
 import dev.deimos.wordcounter.ui.theme.LocalAppDimensions
 import dev.deimos.wordcounter.ui.theme.WordCounterTheme
+import dev.deimos.wordcounter.ui.viewmodel.WordCounterViewModel
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import wordcounter.composeapp.generated.resources.Res
@@ -50,105 +54,15 @@ import wordcounter.composeapp.generated.resources.words
 @Composable
 @Preview
 fun App(renderTitle: Boolean = true) {
-    fun getWordsCounting(text: String): Int {
-        return text.split(Regex("\\s+")).filter { it.isNotBlank() }.size
-    }
-
-    fun getLinesCounting(text: String): Int {
-        return text.split(Regex("\\r?\\n")).filter { it.isNotBlank() }.size
-    }
-
     WordCounterTheme {
-        var textState by rememberSaveable() { mutableStateOf("") }
-        val scrollState = rememberScrollState()
+        val viewModel = viewModel { WordCounterViewModel() }
+        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Column(
-                    modifier = Modifier
-                        .safeContentPadding()
-                        .fillMaxHeight()
-                        .widthIn(max = 1000.dp)
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    if (renderTitle) {
-                        Box(
-                            contentAlignment = Alignment.Center,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp)
-                        ) {
-                            Text(
-                                text = stringResource(Res.string.app_name),
-                                fontSize = 25.sp,
-                                fontStyle = FontStyle.Normal,
-                                fontWeight = FontWeight.Bold,
-                                color = MaterialTheme.colorScheme.onBackground
-                            )
-                        }
-                    }
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(16.dp),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .weight(1f)
-                            .verticalScroll(scrollState)
-                    ) {
-                        Text(
-                            text = stringResource(Res.string.text_input),
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                        AreaTextField(
-                            value = textState,
-                            onValueChanged = { textState = it },
-                            hintText = stringResource(Res.string.text_input_hint),
-                        )
-                        Text(
-                            text = stringResource(Res.string.stats),
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                        Column(
-                            modifier = Modifier.fillMaxWidth().height(240.dp),
-                            verticalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            Row(
-                                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                                modifier = Modifier.fillMaxWidth()
-                            ) {
-                                StatCard(
-                                    stringResource(Res.string.characters),
-                                    textState.length.toString(),
-                                    modifier = Modifier.weight(1f)
-                                )
-                                StatCard(
-                                    stringResource(Res.string.words),
-                                    getWordsCounting(textState).toString(),
-                                    modifier = Modifier.weight(1f)
-                                )
-                            }
-                            StatCard(
-                                stringResource(Res.string.lines),
-                                getLinesCounting(textState).toString(),
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
-                    }
-                    Button(
-                        onClick = { textState = "" },
-                        modifier = Modifier.fillMaxWidth(),
-                        shape = RoundedCornerShape(LocalAppDimensions.current.buttonCornerRadius)
-                    ) {
-                        Text(stringResource(Res.string.clear_button))
-                    }
-                }
-            }
-        }
+        WordCounterScreen(
+            renderTitle,
+            uiState,
+            onTextChange = { newText -> viewModel.updateText(newText) },
+            onClearRequested = { viewModel.clear() }
+        )
     }
 }

@@ -18,7 +18,5 @@ fun main() = application {
         )
     ) {
         App(false)
-        println("System Locale: ${java.util.Locale.getDefault()}")
-        println("Language: ${java.util.Locale.getDefault().language}")
     }
 }
