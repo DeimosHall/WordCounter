@@ -2,6 +2,7 @@ package dev.deimos.wordcounter
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -23,21 +24,23 @@ fun App(renderTitle: Boolean = true) {
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
         val navController = rememberNavController()
 
-        NavHost(navController = navController, startDestination = "home") {
-            composable("home") {
-                Column(modifier = Modifier.fillMaxSize()) {
-                    WordCounterScreen(
-                        renderTitle,
-                        uiState,
-                        onTextChange = { newText -> viewModel.updateText(newText) },
-                        onClearRequested = { viewModel.clear() },
-                        onAboutClick = { navController.navigate("about") }
-                    )
+        Surface(modifier = Modifier.fillMaxSize()) {
+            NavHost(navController = navController, startDestination = "home") {
+                composable("home") {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        WordCounterScreen(
+                            renderTitle,
+                            uiState,
+                            onTextChange = { newText -> viewModel.updateText(newText) },
+                            onClearRequested = { viewModel.clear() },
+                            onAboutClick = { navController.navigate("about") }
+                        )
+                    }
                 }
-            }
 
-            composable("about") {
-                AboutScreen(onNavigateBack = { navController.navigate("home") })
+                composable("about") {
+                    AboutScreen(onNavigateBack = { navController.navigate("home") })
+                }
             }
         }
     }
