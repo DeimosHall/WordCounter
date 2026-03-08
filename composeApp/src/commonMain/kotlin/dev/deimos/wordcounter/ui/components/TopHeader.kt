@@ -40,7 +40,6 @@ fun TopHeader(renderTitle: Boolean, onInfoClick: () -> Unit) {
                 painter = painterResource(Res.drawable.info_circle),
                 contentDescription = "Navigate to about screen",
                 tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.align(Alignment.CenterEnd)
             )
         }
     }
