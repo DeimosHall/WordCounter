@@ -19,23 +19,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import dev.deimos.wordcounter.ui.components.AreaTextField
 import dev.deimos.wordcounter.ui.components.StatCard
+import dev.deimos.wordcounter.ui.components.TopHeader
 import dev.deimos.wordcounter.ui.state.TextState
 import dev.deimos.wordcounter.ui.theme.LocalAppDimensions
 import org.jetbrains.compose.resources.stringResource
 import wordcounter.composeapp.generated.resources.Res
-import wordcounter.composeapp.generated.resources.app_name
 import wordcounter.composeapp.generated.resources.characters
 import wordcounter.composeapp.generated.resources.clear_button
 import wordcounter.composeapp.generated.resources.lines
@@ -49,7 +42,8 @@ fun WordCounterScreen(
     renderTitle: Boolean,
     textState: TextState,
     onTextChange: (String) -> Unit,
-    onClearRequested: () -> Unit
+    onClearRequested: () -> Unit,
+    onAboutClick: () -> Unit
 ) {
     val scrollState = rememberScrollState()
 
@@ -70,22 +64,7 @@ fun WordCounterScreen(
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                if (renderTitle) {
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp)
-                    ) {
-                        Text(
-                            text = stringResource(Res.string.app_name),
-                            fontSize = 25.sp,
-                            fontStyle = FontStyle.Normal,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
-                }
+                TopHeader(renderTitle, onAboutClick)
                 Column(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     modifier = Modifier
