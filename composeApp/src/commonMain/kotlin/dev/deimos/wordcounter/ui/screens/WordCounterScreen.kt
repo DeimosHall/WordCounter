@@ -47,77 +47,71 @@ fun WordCounterScreen(
 ) {
     val scrollState = rememberScrollState()
 
-    Surface(
+    Box(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
-    )
-    {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            modifier = Modifier
+                .safeContentPadding()
+                .fillMaxHeight()
+                .widthIn(max = 1000.dp)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            TopHeader(renderTitle, onAboutClick)
             Column(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
-                    .safeContentPadding()
-                    .fillMaxHeight()
-                    .widthIn(max = 1000.dp)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
+                    .fillMaxWidth()
+                    .weight(1f)
+                    .verticalScroll(scrollState)
             ) {
-                TopHeader(renderTitle, onAboutClick)
+                Text(
+                    text = stringResource(Res.string.text_input),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+                AreaTextField(
+                    value = textState.text,
+                    onValueChanged = onTextChange,
+                    hintText = stringResource(Res.string.text_input_hint),
+                )
+                Text(
+                    text = stringResource(Res.string.stats),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
                 Column(
-                    verticalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                        .verticalScroll(scrollState)
+                    modifier = Modifier.fillMaxWidth().height(240.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    Text(
-                        text = stringResource(Res.string.text_input),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                    AreaTextField(
-                        value = textState.text,
-                        onValueChanged = onTextChange,
-                        hintText = stringResource(Res.string.text_input_hint),
-                    )
-                    Text(
-                        text = stringResource(Res.string.stats),
-                        color = MaterialTheme.colorScheme.onBackground
-                    )
-                    Column(
-                        modifier = Modifier.fillMaxWidth().height(240.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Row(
-                            horizontalArrangement = Arrangement.spacedBy(16.dp),
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            StatCard(
-                                stringResource(Res.string.characters),
-                                textState.charCount.toString(),
-                                modifier = Modifier.weight(1f)
-                            )
-                            StatCard(
-                                stringResource(Res.string.words),
-                                textState.wordsCount.toString(),
-                                modifier = Modifier.weight(1f)
-                            )
-                        }
                         StatCard(
-                            stringResource(Res.string.lines),
-                            textState.linesCount.toString(),
+                            stringResource(Res.string.characters),
+                            textState.charCount.toString(),
+                            modifier = Modifier.weight(1f)
+                        )
+                        StatCard(
+                            stringResource(Res.string.words),
+                            textState.wordsCount.toString(),
                             modifier = Modifier.weight(1f)
                         )
                     }
+                    StatCard(
+                        stringResource(Res.string.lines),
+                        textState.linesCount.toString(),
+                        modifier = Modifier.weight(1f)
+                    )
                 }
-                Button(
-                    onClick = onClearRequested,
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(LocalAppDimensions.current.buttonCornerRadius)
-                ) {
-                    Text(stringResource(Res.string.clear_button))
-                }
+            }
+            Button(
+                onClick = onClearRequested,
+                modifier = Modifier.fillMaxWidth(),
+                shape = RoundedCornerShape(LocalAppDimensions.current.buttonCornerRadius)
+            ) {
+                Text(stringResource(Res.string.clear_button))
             }
         }
     }

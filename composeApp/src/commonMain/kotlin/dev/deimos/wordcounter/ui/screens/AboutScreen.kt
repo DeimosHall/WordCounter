@@ -18,23 +18,21 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun AboutScreen(onNavigateBack: () -> Unit) {
-    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-        Box(modifier = Modifier.padding(16.dp)) {
-            IconButton(
-                onClick = onNavigateBack,
-                modifier = Modifier.align(Alignment.TopStart)
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Go Back"
-                )
-            }
-
-            Text(
-                text = "About this App",
-                fontSize = 24.sp,
-                modifier = Modifier.align(Alignment.Center)
+    Box(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        IconButton(
+            onClick = onNavigateBack,
+            modifier = Modifier.align(Alignment.TopStart)
+        ) {
+            Icon(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                contentDescription = "Go Back"
             )
         }
+
+        Text(
+            text = "About this App",
+            fontSize = 24.sp,
+            modifier = Modifier.align(Alignment.Center)
+        )
     }
 }

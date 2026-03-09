@@ -14,16 +14,22 @@ private val Teal200 = Color(0xFF80CBC4)
 private val Teal500 = Color(0xFF009688)
 private val Teal700 = Color(0xFF00796B)
 
+private val Dark = Color(0xff1d1d20)
+
+private val Light = Color(0xffffffff)
+
 private val DarkColorScheme = darkColorScheme(
     primary = Teal200,
     secondary = Teal200,
-    tertiary = Teal700
+    tertiary = Teal700,
+    background = Dark
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Teal500,
     secondary = Teal500,
-    tertiary = Teal700
+    tertiary = Teal700,
+    background = Light
 )
 
 @Composable

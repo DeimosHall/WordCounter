@@ -2,6 +2,7 @@ package dev.deimos.wordcounter
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -24,7 +25,7 @@ fun App(renderTitle: Boolean = true) {
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
         val navController = rememberNavController()
 
-        Surface(modifier = Modifier.fillMaxSize()) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
             NavHost(navController = navController, startDestination = "home") {
                 composable("home") {
                     Column(modifier = Modifier.fillMaxSize()) {
