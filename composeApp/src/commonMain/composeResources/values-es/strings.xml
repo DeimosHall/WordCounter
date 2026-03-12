@@ -7,4 +7,7 @@
     <string name="words">Palabras</string>
     <string name="lines">Líneas</string>
     <string name="clear_button">Limpiar</string>
+
+    <!--    About screen-->
+    <string name="about">Acerca de</string>
 </resources>

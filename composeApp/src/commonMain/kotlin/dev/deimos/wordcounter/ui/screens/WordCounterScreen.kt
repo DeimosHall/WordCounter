@@ -27,7 +27,9 @@ import dev.deimos.wordcounter.ui.components.StatCard
 import dev.deimos.wordcounter.ui.components.TopHeader
 import dev.deimos.wordcounter.ui.state.TextState
 import dev.deimos.wordcounter.ui.theme.LocalAppDimensions
+import dev.deimos.wordcounter.ui.theme.WordCounterTheme
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 import wordcounter.composeapp.generated.resources.Res
 import wordcounter.composeapp.generated.resources.characters
 import wordcounter.composeapp.generated.resources.clear_button
@@ -113,6 +115,24 @@ fun WordCounterScreen(
             ) {
                 Text(stringResource(Res.string.clear_button))
             }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun WordCounterScreenPreview() {
+    val textState = TextState("", 0, 0, 0)
+
+    WordCounterTheme {
+        Surface(color = MaterialTheme.colorScheme.background) {
+            WordCounterScreen(
+                true,
+                textState,
+                onTextChange = {},
+                onClearRequested = {},
+                onAboutClick = {}
+            )
         }
     }
 }

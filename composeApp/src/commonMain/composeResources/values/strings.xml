@@ -7,4 +7,7 @@
     <string name="words">Words</string>
     <string name="lines">Lines</string>
     <string name="clear_button">Clear</string>
+
+    <!--    About screen-->
+    <string name="about">About</string>
 </resources>
