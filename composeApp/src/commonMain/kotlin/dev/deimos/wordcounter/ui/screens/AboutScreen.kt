@@ -44,7 +44,8 @@ fun AboutScreen(onNavigateBack: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .safeContentPadding(),
+            .safeContentPadding()
+            .padding(16.dp),
         contentAlignment = Alignment.Center
     ) {
         // TODO: Add this as a "desktop container" or something similar

@@ -13,23 +13,29 @@ import dev.deimos.wordcounter.getPlatform
 private val Teal200 = Color(0xFF80CBC4)
 private val Teal500 = Color(0xFF009688)
 private val Teal700 = Color(0xFF00796B)
-
 private val Dark = Color(0xff1d1d20)
-
-private val Light = Color(0xffffffff)
+private val Light = Color(0xfffafafb)
+private val SurfaceDark = Color(0xFF333337)
+private val SurfaceLight = Color(0xFFffffff)
+private val OutlineLight = Color(0xFFded8e1)
+private val OutlineDark = Color(0xFF141218)
 
 private val DarkColorScheme = darkColorScheme(
     primary = Teal200,
     secondary = Teal200,
     tertiary = Teal700,
-    background = Dark
+    background = Dark,
+    surfaceVariant = SurfaceDark,
+    outline = OutlineDark
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = Teal500,
     secondary = Teal500,
     tertiary = Teal700,
-    background = Light
+    background = Light,
+    surfaceVariant = SurfaceLight,
+    outline = OutlineLight
 )
 
 @Composable
