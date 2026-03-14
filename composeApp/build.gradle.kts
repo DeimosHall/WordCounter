@@ -61,7 +61,7 @@ android {
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "1.0"
+        versionName = libs.versions.app.version.get()
     }
     packaging {
         resources {
@@ -90,7 +90,11 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "dev.deimos.wordcounter"
-            packageVersion = "1.0.0"
+            packageVersion = libs.versions.app.version.get()
+
+            macOS {
+                dmgPackageVersion = libs.versions.app.dmg.version.get()
+            }
         }
     }
 }
