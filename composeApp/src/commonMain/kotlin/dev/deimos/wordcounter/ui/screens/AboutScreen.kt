@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -41,6 +43,8 @@ import wordcounter.composeapp.generated.resources.license
 
 @Composable
 fun AboutScreen(onNavigateBack: () -> Unit) {
+    val scrollState = rememberScrollState()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -51,8 +55,10 @@ fun AboutScreen(onNavigateBack: () -> Unit) {
         // TODO: Add this as a "desktop container" or something similar
         Column(
             modifier = Modifier
-                .widthIn(max = 1000.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .widthIn(max = 1000.dp)
+                .fillMaxHeight()
+                .verticalScroll(scrollState),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
