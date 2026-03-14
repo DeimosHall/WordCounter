@@ -10,4 +10,6 @@
 
     <!--    About screen-->
     <string name="about">Acerca de</string>
+    <string name="author">Autor</string>
+    <string name="license">Licencia</string>
 </resources>
