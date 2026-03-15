@@ -18,12 +18,12 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     jvm("desktop")
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
@@ -53,11 +53,11 @@ kotlin {
 }
 
 android {
-    namespace = "dev.deimos.wordcounter"
+    namespace = "dev.deimoshall.wordcounter"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "dev.deimos.wordcounter"
+        applicationId = "dev.deimoshall.wordcounter"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
@@ -87,13 +87,47 @@ compose.desktop {
     application {
         mainClass = "dev.deimos.wordcounter.MainKt"
 
+        buildTypes.release.proguard {
+            isEnabled.set(false)
+        }
+
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "dev.deimos.wordcounter"
+            targetFormats(
+                TargetFormat.Dmg,
+                TargetFormat.Msi,
+                TargetFormat.Deb,
+                TargetFormat.Rpm,
+                TargetFormat.AppImage
+            )
+            // Friendly name used for installation folders and shortcuts
+            packageName = "Word Counter"
             packageVersion = libs.versions.app.version.get()
 
+            vendor = "Deimos Hall"
+            description = "A clean, modern, and private word counting app"
+            licenseFile = project.rootProject.file("LICENSE")
+
+            linux {
+                iconFile = project.rootProject.file("assets/icon.png")
+                shortcut = true
+                menuGroup = "Office"
+                appCategory = "Office;Utility;"
+            }
+
+            windows {
+                iconFile = project.rootProject.file("assets/icon.ico")
+                shortcut = true
+                menu = true
+                menuGroup = "Word Counter"
+                upgradeUuid = "8988697c-e7fd-48af-b0b3-7a29af5f53df"
+                dirChooser = true
+            }
+
             macOS {
+                bundleID = "dev.deimoshall.wordcounter"
+                dockName = "Word Counter"
                 dmgPackageVersion = libs.versions.app.dmg.version.get()
+                iconFile = project.rootProject.file("assets/icon.icns")
             }
         }
     }
