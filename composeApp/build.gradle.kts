@@ -112,6 +112,9 @@ compose.desktop {
                 shortcut = true
                 menuGroup = "Office"
                 appCategory = "Office;Utility;"
+                rpmLicenseType = "GPLv3"
+                packageName = "word-counter"
+                debMaintainer = "Deimos Hall <contact@deimoshall.dev>"
             }
 
             windows {
