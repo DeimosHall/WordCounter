@@ -92,13 +92,6 @@ compose.desktop {
         }
 
         nativeDistributions {
-            targetFormats(
-                TargetFormat.Dmg,
-                TargetFormat.Msi,
-                TargetFormat.Deb,
-                TargetFormat.Rpm,
-                TargetFormat.AppImage
-            )
             // Friendly name used for installation folders and shortcuts
             packageName = "Word Counter"
             packageVersion = libs.versions.app.version.get()
@@ -108,6 +101,7 @@ compose.desktop {
             licenseFile = project.rootProject.file("LICENSE")
 
             linux {
+                targetFormats(TargetFormat.Deb, TargetFormat.Rpm, TargetFormat.AppImage)
                 iconFile = project.rootProject.file("assets/icon.png")
                 shortcut = true
                 menuGroup = "Office"
@@ -118,6 +112,7 @@ compose.desktop {
             }
 
             windows {
+                targetFormats(TargetFormat.Msi)
                 iconFile = project.rootProject.file("assets/icon.ico")
                 shortcut = true
                 menu = true
@@ -127,8 +122,10 @@ compose.desktop {
             }
 
             macOS {
+                targetFormats(TargetFormat.Dmg)
                 bundleID = "dev.deimoshall.wordcounter"
                 dockName = "Word Counter"
+                packageVersion = libs.versions.app.dmg.version.get()
                 dmgPackageVersion = libs.versions.app.dmg.version.get()
                 iconFile = project.rootProject.file("assets/icon.icns")
             }
