@@ -7,11 +7,27 @@ A clean, modern, and private word counting app built with **Compose Multiplatfor
   <img src="screenshots/linux-main-dark.png" width="60%" style="vertical-align: middle" />
 </p>
 
-## Tech stack
+## Source code
 
-- **Language**: Kotlin.
-- **UI Framework**: Compose Multiplatform.
-- **Architecture**: MVVM.
+- [GitHub](https://github.com/DeimosHall/WordCounter)
+- [Codeberg](https://codeberg.org/deimoshall/WordCounter)
+
+## Flatpak Maintenance
+
+To build this app for Flathub, a `generated-sources.json` file must be maintained. This file contains the checksums for all Gradle dependencies, which are required for the offline build sandbox.
+
+Run the following script to update the dependencies:
+
+```bash
+./generate-flatpak-sources.sh
+```
+
+**When to repeat the process:**
+
+- Adding a new library to `build.gradle.kts` or `libs.versions.toml`.
+- Updating the version of an existing library.
+- Changing the Gradle version itself.
+- Adding a new Gradle plugin.
 
 ## License
 

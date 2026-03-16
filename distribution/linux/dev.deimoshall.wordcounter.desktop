@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Word Counter
+Comment=A clean, modern, and private word counting app
+Exec=word-counter
+Icon=dev.deimoshall.wordcounter
+Categories=Office;Utility;
+Terminal=false
