@@ -11,21 +11,23 @@ plugins {
 }
 
 kotlin {
+    jvmToolchain(21)
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    
+
     jvm("desktop")
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.androidx.core.splashscreen)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -35,7 +37,10 @@ kotlin {
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.lifecycle.viewmodel.compose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(compose.materialIconsExtended)
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.9.2")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -48,15 +53,15 @@ kotlin {
 }
 
 android {
-    namespace = "dev.deimos.wordcounter"
+    namespace = "dev.deimoshall.wordcounter"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "dev.deimos.wordcounter"
+        applicationId = "dev.deimoshall.wordcounter"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
-        versionName = "1.0"
+        versionName = libs.versions.app.version.get()
     }
     packaging {
         resources {
@@ -82,10 +87,48 @@ compose.desktop {
     application {
         mainClass = "dev.deimos.wordcounter.MainKt"
 
+        buildTypes.release.proguard {
+            isEnabled.set(false)
+        }
+
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "dev.deimos.wordcounter"
-            packageVersion = "1.0.0"
+            // Friendly name used for installation folders and shortcuts
+            packageName = "Word Counter"
+            packageVersion = libs.versions.app.version.get()
+
+            vendor = "Deimos Hall"
+            description = "A clean, modern, and private word counting app"
+            licenseFile = project.rootProject.file("LICENSE")
+
+            linux {
+                targetFormats(TargetFormat.Deb, TargetFormat.Rpm, TargetFormat.AppImage)
+                iconFile = project.rootProject.file("assets/icon.png")
+                shortcut = true
+                menuGroup = "Office"
+                appCategory = "Office;Utility;"
+                rpmLicenseType = "GPLv3"
+                packageName = "word-counter"
+                debMaintainer = "Deimos Hall <contact@deimoshall.dev>"
+            }
+
+            windows {
+                targetFormats(TargetFormat.Msi)
+                iconFile = project.rootProject.file("assets/icon.ico")
+                shortcut = true
+                menu = true
+                menuGroup = "Word Counter"
+                upgradeUuid = "8988697c-e7fd-48af-b0b3-7a29af5f53df"
+                dirChooser = true
+            }
+
+            macOS {
+                targetFormats(TargetFormat.Dmg)
+                bundleID = "dev.deimoshall.wordcounter"
+                dockName = "Word Counter"
+                packageVersion = libs.versions.app.dmg.version.get()
+                dmgPackageVersion = libs.versions.app.dmg.version.get()
+                iconFile = project.rootProject.file("assets/icon.icns")
+            }
         }
     }
 }

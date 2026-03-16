@@ -1,0 +1,28 @@
+app-id: dev.deimoshall.wordcounter
+runtime: org.freedesktop.Platform
+runtime-version: '24.08'
+sdk: org.freedesktop.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.openjdk21 # Matches your jvmToolchain(21)
+command: word-counter
+finish-args:
+  - --share=ipc
+  - --socket=fallback-x11
+  - --socket=wayland
+  - --device=dri
+  - --share=network # Only if your app needs internet at runtime
+modules:
+  - name: openjdk
+    buildsystem: simple
+    build-commands:
+      - /usr/lib/sdk/openjdk21/install.sh
+  - name: word-counter
+    buildsystem: simple
+    build-commands:
+      - ./gradlew :composeApp:packageDistributionForCurrentOS --no-daemon
+      - install -Dm755 build/compose/binaries/main/app/WordCounter -t /app/bin/
+    sources:
+      - type: git
+        url: https://github.com/DeimosHall/WordCounter
+        branch: main
+      - generated-sources.json # The file with pre-downloaded dependencies

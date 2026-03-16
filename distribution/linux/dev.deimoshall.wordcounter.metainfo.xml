@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>dev.deimoshall.wordcounter</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0</project_license>
+  <name>Word Counter</name>
+  <summary>A clean, modern, and private word counting app</summary>
+  <description>
+    <p>
+      Word Counter is a simple and efficient tool for counting words and characters in your text.
+      It is designed to be clean, modern, and focused on privacy.
+    </p>
+    <ul>
+      <li>Fast and lightweight</li>
+      <li>Clean and modern user interface</li>
+      <li>Works offline and respects your privacy</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">dev.deimoshall.wordcounter.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Word Counter main window (light)</caption>
+      <image>https://raw.githubusercontent.com/DeimosHall/WordCounter/main/screenshots/linux-main-light.png</image>
+    </screenshot>
+    <screenshot>
+          <caption>Word Counter about window (light)</caption>
+          <image>https://raw.githubusercontent.com/DeimosHall/WordCounter/main/screenshots/linux-about-light.png</image>
+        </screenshot>
+    <screenshot>
+      <caption>Word Counter main window (dark)</caption>
+      <image>https://raw.githubusercontent.com/DeimosHall/WordCounter/main/screenshots/linux-main-dark.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Word Counter about window (dark)</caption>
+      <image>https://raw.githubusercontent.com/DeimosHall/WordCounter/main/screenshots/linux-about-dark.png</image>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://github.com/DeimosHall/WordCounter</url>
+  <url type="vcs-browser">https://github.com/DeimosHall/WordCounter</url>
+  <url type="bugtracker">https://github.com/DeimosHall/WordCounter/issues</url>
+  <developer_name>Deimos Hall</developer_name>
+  <content_rating type="oars-1.1" />
+  <releases>
+    <release version="0.1.0" date="2026-03-15" />
+  </releases>
+</component>

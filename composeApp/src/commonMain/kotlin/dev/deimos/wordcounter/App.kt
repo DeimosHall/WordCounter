@@ -1,42 +1,46 @@
 package dev.deimos.wordcounter
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import dev.deimos.wordcounter.ui.screens.AboutScreen
+import dev.deimos.wordcounter.ui.screens.WordCounterScreen
+import dev.deimos.wordcounter.ui.theme.WordCounterTheme
+import dev.deimos.wordcounter.ui.viewmodel.WordCounterViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import wordcounter.composeapp.generated.resources.Res
-import wordcounter.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
-fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+fun App(renderTitle: Boolean = true) {
+    WordCounterTheme {
+        val viewModel = viewModel { WordCounterViewModel() }
+        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+        val navController = rememberNavController()
+
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+            NavHost(navController = navController, startDestination = "home") {
+                composable("home") {
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        WordCounterScreen(
+                            renderTitle,
+                            uiState,
+                            onTextChange = { newText -> viewModel.updateText(newText) },
+                            onClearRequested = { viewModel.clear() },
+                            onAboutClick = { navController.navigate("about") }
+                        )
+                    }
+                }
+
+                composable("about") {
+                    AboutScreen(onNavigateBack = { navController.navigate("home") })
                 }
             }
         }
